@@ -202,6 +202,12 @@ a:hover{
     font-size: 0.8em;
     transition: .3s;
 }
+.card-image{
+    height: 200px;
+}
+.card-image img{
+    width: 100%;
+}
 .card-actions button:hover{
     background-color: #5511af;
     color: white;

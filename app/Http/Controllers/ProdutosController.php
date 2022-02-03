@@ -7,63 +7,26 @@ use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
 {
-    
-    public function index()
-    {
-        $produtos = Produto::orderBy('id', 'desc')->get();
 
-        return view('produtos.index', ['prods' => $produtos, 'pagina' => 'produtos']);
+    public function store(Request $request){
+        $form = $request->validate([
+            'photo' => 'image|required|mimes:jpg,png,jpeg',
+            'name' => 'required|string',
+            'price' => 'required|numeric'
+        ]);
+        
+        $produto = (new Produto)->fill($form);
+        $imagemCaminho = $form['photo']->store('', 'imagens');
+        $produto->photo = $imagemCaminho;
+        $produto->save();
+
+        return redirect()->route('item', ['id' => $produto->id]);
+    }
+    public function show($id){
+        return view('produtos-show')->with(['produto' => Produto::findOrFail($id)]);
     }
 
-    public function show(Produto $prod)
-    {
-        return view('produtos.show', ['prod' => $prod, 'pagina' => 'produtos']);
+    public function index(){
+        return view('home')->with(['produtos' => Produto::orderBy('name')->get()]);
     }
-
-    public function create()
-    {
-        return view('produtos.create', ['pagina' => 'produtos']);
-    }
-
-    public function insert(Request $form)
-    {
-        $prod = new Produto();
-
-        $prod->nome = $form->nome;
-        $prod->preco = $form->preco;
-        $prod->descricao = $form->descricao;
-
-        $prod->save();
-
-        return redirect()->route('produtos');
-    }
-
-    public function edit(Produto $prod)
-    {
-        return view('produtos.edit', ['prod' => $prod, 'pagina' => 'produtos']);
-    }
-
-    public function update(Request $form, Produto $prod)
-    {
-        $prod->nome = $form->nome;
-        $prod->preco = $form->preco;
-        $prod->descricao = $form->descricao;
-
-        $prod->save();
-
-        return redirect()->route('produtos');
-    }
-
-    public function remove(Produto $prod)
-    {
-        return view('produtos.remove', ['prod' => $prod, 'pagina' => 'produtos']);
-    }
-
-    public function delete(Produto $prod)
-    {
-        $prod->delete();
-
-        return redirect()->route('produtos');
-    }
-
 }

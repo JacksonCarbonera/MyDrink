@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home');
+Route::get('/', [ ProdutosController::class, 'index' ])->name('home');
 
 
 Route::view('/registar', 'register')->name('registrar');
@@ -26,8 +26,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
+Route::get('/produto/{id}', [ ProdutosController::class, 'show' ])->name('item');
 
 Route::middleware('auth')->group(function(){
     // Rtoas de usuario
@@ -38,7 +37,8 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware(['auth','is.admin'])->prefix('admin')->group(function(){
-    // Rotas de admin
+    Route::view('/cadastrar', 'produtos-create')->name('cadastrar-produto');
+    Route::post('/cadastrar', [ ProdutosController::class, 'store' ]);
 
     Route::get('/test',function(){
         return "hello World admin";
