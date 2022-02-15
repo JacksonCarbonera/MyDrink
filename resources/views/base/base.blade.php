@@ -171,10 +171,11 @@
         <a href="./kit.html"><li>Kits</li></a>
         <a href="./gourmet.html"> <li>Gourmet</li></a> 
     </ul>
-
     <main>
         @yield('content')
     </main>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="utf-8"></script>
+<script src="jquery.countdown.min.js" charset="utf-8"></script>
 </html>

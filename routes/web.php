@@ -44,3 +44,11 @@ Route::middleware(['auth','is.admin'])->prefix('admin')->group(function(){
         return "hello World admin";
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
