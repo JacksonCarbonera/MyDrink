@@ -21,7 +21,7 @@
     <nav style="padding: 24px;" class="navbar" >
         <img src="{{ asset('img/logo.png')}}" alt="" srcset="">
         <div class="search-bar-container">
-            <input type="text">
+            <input type="text" v-model="buscar_produtos">
             <i class="bi bi-search"></i>
         </div>
         <div class="nav-icons">
@@ -113,7 +113,7 @@
                 <div class= " card mb-3 item" style="max-width: 540px;">
                     <div class="row g-0">
                         <div style="justify-content: center;" class="col-md-4">
-                            <img src="./b.jpg" class="img-fluid rounded-start" alt="">
+                            <img src="{{ asset('img/kit.jpg')}}" class="img-fluid rounded-start" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -132,32 +132,10 @@
                     </div>
                 </div>
     
-                <div class="card mb-3 item" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div style="justify-content: center;" class="col-md-4">
-                            <img src="./b.jpg" class="img-fluid rounded-start" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5>Kit Opala</h5>
-                                <p style="margin-bottom: 0px;" class="card-text"><small
-                                        class="money text-muted">5</small> </p>
-                                <p style="margin-bottom: 0px;" class="card-text"><small class="text-muted">Quantidade
-                                        Comprada: 2</small> </p>
-                                <p style="margin-bottom: 0px;" class="card-text"><small class="text-muted">TOTAL:
-                                    </small><small class="money text-muted">10</small></p>
-                                <div class="card-actions">
-                                    <button class="card-buy">remover</button>
-    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class='carrinho-checkout'>
-                    <p style="margin-bottom: 0px;" class="card-text"><small class="text-muted">Quantidade Comprada: 4</small> </p>
+                    <p style="margin-bottom: 0px;" class="card-text"><small class="text-muted">Quantidade Comprada: 2</small> </p>
                     <p style="margin-bottom: 0px;" class="card-text"><small class="text-muted">TOTAL:
-                    </small><small class="money text-muted">20</small></p>
+                    </small><small class="money text-muted">10</small></p>
                     <div class="card-actions">
                         <button class="card-buy">Comprar</button>
                     </div>
@@ -168,7 +146,7 @@
     </nav>
     <ul class='nav-menu'>
         <a href="./ofertas.html"><li>Ofertas</li></a>
-        <a href="./kit.html"><li>Kits</li></a>
+        <a href="./"><li>Kits</li></a>
         <a href="./gourmet.html"> <li>Gourmet</li></a> 
     </ul>
     <main>

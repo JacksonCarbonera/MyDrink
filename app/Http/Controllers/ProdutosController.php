@@ -20,7 +20,7 @@ class ProdutosController extends Controller
         $produto->photo = $imagemCaminho;
         $produto->save();
 
-        return redirect()->route('item', ['id' => $produto->id]);
+        return redirect()->route("home");
     }
     public function show($id){
         return view('produtos-show')->with(['produto' => Produto::findOrFail($id)]);
@@ -28,5 +28,12 @@ class ProdutosController extends Controller
 
     public function index(){
         return view('home')->with(['produtos' => Produto::orderBy('name')->get()]);
+    }
+    public function admin(){
+        return view('administrar')->with(['produtos' => Produto::orderBy('name')->get()]);
+    }
+    public function destroy($id){
+        $produto = Produto::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

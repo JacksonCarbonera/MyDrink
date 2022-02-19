@@ -27,16 +27,60 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
- var cont= new Vue({
-  
-   el: '#cont',
-  
-   data: {
-  
-    contador: 0,
-  
-   },
- 
-  
- });
+ carrinho: function (json) {
+  var self = this;
+  modal({
+      callback: function (div) {
+          var vue_instance = new Vue({
+              el: div.get(0),
+              data: {
+                  produtos_list: json.produtos_list,
+                  buscar_produto:'',
+                  contador: 0,
+                  produtos_total: 0,
+              },
+              methods: {
+                home: function (print) {
+                      var vue_self = this;
+                      var isPrint = print === true;
+                      $.ajax({
+                          url: self.Url('home'),
+                          dataType: 'json',
+                          data: {
+                              quantidade: vue_self.quantidade,
+                              preço_total: vue_self.preço_total,
+                              print: isPrint
+                          },
+                          success: function (j) {
+                              if (isPrint === true) {
+                                  App.print({});
+                              } else {
+                                  vue_self.list = j.list;
+                              }
+                          }
+                      });
+                  },
+                  buscar: function(){
+                      $.post(self.Url('home'), {
+                          buscar_produto: vue_instance.buscar_produto,
+                      },function(json){
+                          vue_instance.produtos_list = json.produtos_list
+                      },'json');
+                  },
+                  print: function () {
+                      $.post(self.Url('boleto'), {
+                          list: vue_instance.produtos_list
+                      }, function (r) {
+                          App.print(r.list);
+                      });
+                  },
+              },
+              computed: {
+                  pagination_total: function () {
+                      return this.produtos_list.length;
+                  },
+              },
+          });
+      }
+  });
+}

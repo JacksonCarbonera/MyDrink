@@ -217,11 +217,7 @@ a:hover{
     margin-right: 0.1em;
 
 }
-.money::after{
-    content: ',00';
-    margin-right: 0.1em;
 
-}
 
 .carrinho-checkout{
     border: solid 1px #5511af;

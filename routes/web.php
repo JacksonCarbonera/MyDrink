@@ -26,29 +26,23 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/produto/{id}', [ ProdutosController::class, 'show' ])->name('item');
 
 Route::middleware('auth')->group(function(){
     // Rtoas de usuario
     Route::get('/testlog',function(){
         return "hello World";
     });
-
+    
+    
 });
 
 Route::middleware(['auth','is.admin'])->prefix('admin')->group(function(){
     Route::view('/cadastrar', 'produtos-create')->name('cadastrar-produto');
     Route::post('/cadastrar', [ ProdutosController::class, 'store' ]);
-
+    Route::get('/produtos', [App\Http\Controllers\ProdutosController::class, 'admin'])->name('adminsitrador');
+    Route::get('/remover/{id}', [App\Http\Controllers\ProdutosController::class, 'destroy'])->name('remover-produto');
+    
     Route::get('/test',function(){
         return "hello World admin";
     });
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
